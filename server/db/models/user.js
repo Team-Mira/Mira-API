@@ -10,8 +10,7 @@ module.exports = db.define('user', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  reactionsRecieved: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0
+  avatar: {
+    type: Sequelize.STRING
   }
 });

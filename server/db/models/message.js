@@ -17,8 +17,12 @@ module.exports = db.define('message', {
   repliedUser: {
     type: Sequelize.BIGINT
   },
-  reactions: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0
+  mentionedEveryone: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  mentionedUsers: {
+    type: Sequelize.JSONB,
+    defaultValue: []
   }
 })

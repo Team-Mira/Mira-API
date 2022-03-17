@@ -2,6 +2,8 @@ const Message = require('./message');
 const Channel = require('./channel');
 const User = require('./user');
 const Server = require('./server')
+const Emoji = require('./emoji')
+const Reaction = require('./reaction')
 
 Channel.hasMany(Message, {
   onDelete: 'cascade'
@@ -14,10 +16,11 @@ Message.belongsTo(User);
 Server.hasMany(Channel, {onDelete: 'cascade'});
 Channel.belongsTo(Server)
 
-
 module.exports = {
   Channel,
   Message,
   User,
-  Server
+  Server,
+  Emoji,
+  Reaction
 };
