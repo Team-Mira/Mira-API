@@ -3,7 +3,7 @@ const db = require('./server/db');
 const PORT = process.env.PORT || 8080;
 const app = express();
 
-
+module.exports={app, db}
 
 db.authenticate()
 .then(() => {
