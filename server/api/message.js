@@ -20,6 +20,21 @@ router.post('/add', async (req, res, next) => {
   const [cServer] = await Server.findOrCreate({where: {id: server.id}})
   const [cChannel] = await Channel.findOrCreate({where: {id: channel.id}})
 
+  if(message.mentionedUsers.length){
+    message.mentionedUsers.forEach(async (user) =>  {
+      const [mentionedUser] = await User.findOrCreate({where: {id: user.id, name: user.name}})
+      if(user.avatar !== mentionedUser.avatar){
+        await mentionedUser.update({avatar: user.avatar})
+      }
+    })
+  }
+
+  if(message.emojis.length){
+    message.emojis.forEach(async (emoji) => {
+      await Emoji.findOrCreate({where: {id: emoji.id, name: emoji.name, animated: emoji.animated, url: emoji.url}})
+    })
+  }
+
   if(user.avatar !== cUser.avatar){
     await cUser.update({avatar: user.avatar})
   }
@@ -54,6 +69,12 @@ router.post('/add', async (req, res, next) => {
 router.delete('/delete', async (req, res, next) => {
   const { id } = req.body
   const cMessage = await Message.findByPk(id)
+  const cReactions = await Reaction.findAll({where: {messageId: id}})
+
+  cReactions.forEach( async (reaction) => {
+    await reaction.destroy()
+  })
+
   await cMessage.destroy()
 
   res.send('destroyed')
@@ -69,6 +90,8 @@ router.put('/update', async (req, res, next) => {
 
 router.put('/reaction/add', async (req, res, next) => {
   const { message, reactor, emoji } = req.body
+  const fileExt = emoji.animated ? '.gif' : '.png'
+  const url = `https://cdn.discordapp.com/emojis/${emoji.id}${fileExt}`
 
   const [cReactor] = await User.findOrCreate({where: {id: reactor.id, name: reactor.name}})
 
@@ -76,7 +99,7 @@ router.put('/reaction/add', async (req, res, next) => {
     await cReactor.update({avatar: reactor.avatar})
   }
 
-  await Emoji.findOrCreate({where: {id: emoji.id, name: emoji.name}})
+  await Emoji.findOrCreate({where: {id: emoji.id, name: emoji.name, animated: emoji.animated, url}})
 
 
   Reaction.create({messageId: message.id, userId: message.userId, reactorId: reactor.id, emojiId: emoji.id })

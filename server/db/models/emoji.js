@@ -8,5 +8,11 @@ module.exports = db.define('emoji', {
   },
   name: {
     type: Sequelize.STRING
+  },
+  animated: {
+    type: Sequelize.BOOLEAN
+  },
+  url: {
+    type: Sequelize.STRING
   }
 });
