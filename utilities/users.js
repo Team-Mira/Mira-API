@@ -6,9 +6,14 @@ module.exports = {
 }
 
 //calculate user with the most messages
-//takes array of messages, returns userId
+//takes array of messages, computes sorted list of users by messages, returns userId
+//ties result in 'first come first serve' (earlier in messages array) 
 function highestMessageUser(messages) {
-    let authorCount = tidy(messages, count('userId', {sort:true}))
-    return authorCount[0]
+   try{
+       let authorCount = tidy(messages, count('userId', {sort:true}))
+     return authorCount[0].userId} 
+   catch(error){
+       throw new Error('Message Object Empty')
+   }
 }
 
