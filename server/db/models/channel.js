@@ -6,7 +6,4 @@ module.exports = db.define('channel', {
     type: Sequelize.BIGINT,
     primaryKey: true,
   },
-  name: {
-    type: Sequelize.STRING
-  }
 });

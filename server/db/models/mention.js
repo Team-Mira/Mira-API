@@ -1,17 +1,11 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-module.exports = db.define('reaction', {
+module.exports = db.define('mention', {
   messageId: {
     type: Sequelize.BIGINT
   },
   userId: {
     type: Sequelize.BIGINT
   },
-  reactorId: { 
-    type: Sequelize.BIGINT
-  },
-  emojiId: {
-    type: Sequelize.BIGINT
-  }
 });
