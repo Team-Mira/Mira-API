@@ -4,7 +4,7 @@ const User = require('./user');
 const Server = require('./server')
 const Emoji = require('./emoji')
 const Reaction = require('./reaction')
-const Reply = require('./reply')
+const Mention = require('./mention')
 
 Channel.hasMany(Message, {
   onDelete: 'cascade'
@@ -24,5 +24,5 @@ module.exports = {
   Server,
   Emoji,
   Reaction, 
-  Reply
+  Mention
 };
