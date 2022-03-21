@@ -5,6 +5,7 @@ const Server = require('../db/models/server')
 const Message = require('../db/models/message')
 const Emoji = require('../db/models/emoji')
 const Reaction = require('../db/models/reaction')
+const Mention = require('../db/models/mention')
 
 module.exports = router;
 
@@ -26,6 +27,8 @@ router.post('/add', async (req, res, next) => {
       if(user.avatar !== mentionedUser.avatar){
         await mentionedUser.update({avatar: user.avatar})
       }
+
+      const cMention = Mention.create({messageId: message.id, userId: mentionedUser.id})
     })
   }
 
