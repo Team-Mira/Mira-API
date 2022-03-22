@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       reaction.belongsTo(models.message) //message.authorId
-      reaction.belongsTo(models.emoji)
     }
   }
   reaction.init({
