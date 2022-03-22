@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      message.hasMany(models.mentions)
-      message.hasMany(models.reactions)
+      message.hasMany(models.mention)
+      message.hasMany(models.reaction)
     }
 
   }
