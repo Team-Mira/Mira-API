@@ -1,4 +1,3 @@
-const express = require('express');
 const db = require('./server/db');
 const PORT = process.env.PORT || 8080;
 const app = require('./app')
