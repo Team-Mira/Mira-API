@@ -3,7 +3,7 @@ const PORT = process.env.PORT || 8080;
 const app = require('./app')
 
 
-db.authenticate()
+db.sequelize.authenticate()
 .then(() => {
   console.log('Connection has been established successfully.');
 })
@@ -11,7 +11,7 @@ db.authenticate()
   console.error('Unable to connect to the database:', err);
 });
 
-db.sync().then(() => console.log('Database is synced'));
+db.sequelize.sync().then(() => console.log('Database is synced'));
 
 
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));
