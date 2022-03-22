@@ -1,8 +1,8 @@
 const fs = require('fs')
 module.exports = {
   development: {
-    username: "username",
-    password: null,
+    username: "",
+    password: "",
     database: "mira-db",
     host: 'localhost',
     port: "5432",
