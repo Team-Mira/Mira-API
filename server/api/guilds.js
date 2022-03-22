@@ -12,7 +12,3 @@ router.post('/', async (req, res, next) => {
 
   res.send(cGuilds)
 })
-
-router.get('/', async (req, res, next) => {
-  res.send('ye')
-})
