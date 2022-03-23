@@ -11,4 +11,12 @@ db.sequelize.authenticate()
   console.error('Unable to connect to the database:', err);
 });
 
+db.sequelize.sync()
+.then(() => {
+  console.log('DB synced');
+})
+.catch(err => {
+  console.error('Unable to sync database:', err);
+});
+
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));

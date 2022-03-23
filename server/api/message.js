@@ -7,7 +7,6 @@ router.post('/add', async (req, res, next) => {
   const { newMessage } = req.body
 
   message.create(newMessage)
-
   res.send('created')
 })
 
@@ -21,7 +20,6 @@ router.delete('/delete', async (req, res, next) => {
   })
 
   await cMessage.destroy()
-
   res.send('destroyed')
 })
 

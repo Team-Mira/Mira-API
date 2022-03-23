@@ -9,15 +9,4 @@ client.on('ready', () => {
 
 client.login(process.env.DISCORD_TOKEN)
 
-// const fetchUser = async () => {return await client.users.fetch('393621989983780876')}
-
-// const fetchGuilds = async () => {return await client.guilds.fetch()}
-
-// fetchUser()
-// .then((data) => console.log(data))
-
-// fetchGuilds()
-// .then((data) => console.log(data))
-
-
 module.exports = client
