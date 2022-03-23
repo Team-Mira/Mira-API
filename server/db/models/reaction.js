@@ -12,11 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       reaction.belongsTo(models.message) //message.authorId
-      reaction.belongsTo(models.emoji)
     }
   }
   reaction.init({
-    reactorId: DataTypes.BIGINT
+    authorId: DataTypes.BIGINT,
+    reactorId: DataTypes.BIGINT,
+    emojiId: DataTypes.BIGINT,
+    emojiName: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'reaction',
