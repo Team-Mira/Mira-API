@@ -1,25 +1,21 @@
 const fs = require('fs')
 module.exports = {
-  // development: {
-  //   username: "",
-  //   password: "",
-  //   database: "mira-db",
-  //   host: 'localhost',
-  //   port: "5432",
-  //   dialect: "postgres",
-  //   dialectOptions: {
-  //     ssl: {
-  //       require: true,
-  //       rejectUnauthorized: false
-  //     }
-  //   }
-  // },
+  development: {
+    username: "",
+    password: "",
+    database: "mira-db",
+    host: 'localhost',
+    port: "5432",
+    logging: false,
+    dialect: "postgres",
+  },
   test: {
     username: "root",
     password: null,
     database: "database_test",
     host: process.env.DATABASE_URL,
     port: process.env.PORT,
+    logging: false,
     dialect: "postgres",
     dialectOptions: {
       ssl: {

@@ -1,16 +1,22 @@
 const router = require('express').Router();
-const User = require('../db/models/user')
+const { reaction } = require('../db/models')
 
-module.exports = router
+module.exports = router;
 
-//sends all reactions
-router.get('/', async (req, res, next) => {
-  const users = await User.findAll()
-  res.send(users)
+router.post('/add', async (req, res, next) => {
+  const { newReaction } = req.body
+  reaction.create(newReaction)
+  res.send('created')
 })
 
-//send highest reactions
-router.get('/mostreactions', async (req, res, next) => {
-  const user = await User.max('reactions')
-  res.send(user)
+router.delete('/delete', async (req, res, next) => {
+  const { ids } = req.body
+  const cReaction = await reaction.findAll({
+    where: {
+      reactorId: ids.reactorId,
+      messageId: ids.messageId,
+      emojiId: ids.emojiId
+  }})
+  cReaction[0].destroy()
+  res.send('deleted')
 })

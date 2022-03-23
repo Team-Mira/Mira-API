@@ -20,10 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       type:DataTypes.BIGINT,
     primaryKey: true},
-    userId: DataTypes.BIGINT,
+    authorId: DataTypes.BIGINT,
     channelId: DataTypes.BIGINT,
-    serverId: DataTypes.BIGINT,
-    content:{ 
+    guildId: DataTypes.BIGINT,
+    content:{
       type:DataTypes.STRING,
     allowNull:false},
     isReply: {

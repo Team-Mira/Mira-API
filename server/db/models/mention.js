@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   mention.init({
-    mentionedId: DataTypes.BIGINT
+    mentionedId: DataTypes.BIGINT,
+    authorId: DataTypes.BIGINT
   }, {
     sequelize,
     modelName: 'mention',
