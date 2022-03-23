@@ -1,18 +1,14 @@
 const {mostActiveUser, mostIgnoredUser} = require('./users.js')
 const {message, mention, reaction} = require('../server/db')
+const fs = require('fs')
+const path = require("path");
 
-const testData = [
-  {userId: 1, content: 'blah', reactions: [{id: 3}, {id: 4}]},
-  {userId: 1, content: 'blah', reactions: [{id: 4}]},
-  {userId: 1, content: 'blah', reactions:[ {id: 5}]},
-  {userId: 0, content: 'blah', reactions: [{id: 6}]},
-  {userId: 0, content: 'blah', reactions: [{id: 7}]}
-]
+let testData = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./test.json"), 'utf-8'))
 
-describe.only('user data utilities', () => {  
+describe('user data utilities', () => {  
+
     test('calculate user with most messages', () => {
-      testSeedData.then((data)=> console.log(data))
-     expect(mostActiveUser(testData)).toBe(1)
+     expect(mostActiveUser(testData.messages)).toBe('274764470503604224')
     });
 
     test('handle errors', () => {
@@ -21,6 +17,6 @@ describe.only('user data utilities', () => {
     })
 
     test('ignored user returns userId of user with lowest ratio of reactions to messages', () => {
-      expect(mostIgnoredUser(testData)).toBe(1)
+      expect(mostIgnoredUser(testData.messages)).toBe('274764470503604224')
     })
   });
