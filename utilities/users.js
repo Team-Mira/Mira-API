@@ -1,11 +1,12 @@
-const {tidy, count, max, summarize} = require('@tidyjs/tidy') 
-const {reaction} = require('./db')
+const {tidy, count, max, groupBy, summarize, sum, mutate} = require('@tidyjs/tidy') 
+
 //these functions assemble data from raw sqlize query
 
 module.exports = {
     mostActiveUser,
     mostActiveReactor,
     mostUsedReaction,
+    mostIgnoredUser
 }
 
 //calculate user with the most messages
@@ -42,14 +43,16 @@ function mostUsedReaction(reactions) {
     }
 }
 
-function mostIgnoredUser(messages) {
+function mostIgnoredUser(messagesWithReactions) {
     try{
-        let authorMessages = tidy(messages, groupBy('userId')) //groups messages by user
-        let authorMessagesWithReactions = authorMessages.map(collection => {
-            let reactions = reaction.findAll({where: {reactorId: collection[0].userId}})
-            return {...collection, reactions}})//counts total reactions to user messages
-        return tidy(authorMessagesWithReactions, summarize({ userId: max(collection=>collection.messages.length / collection.reactions.length)})//sorts collections by ratio of messages to reactions
+        let authorMessages = tidy(messagesWithReactions, groupBy('userId', groupBy.entriesObject())) //groups messages by user
+        authorMessages.map(user => {
+            let reactionsTally = user.values.flatMap(message => message.reactions).length //tallies all reactions
+           let reactionMessageRatio = reactionsTally / user.values.length
+           return {...user, reactionMessageRatio} 
+        })  
+        return authorMessages[0].key
     }catch(error){
-        throw new Error('Message Object Empty')
+        throw(error)
     }
 }
