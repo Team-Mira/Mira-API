@@ -11,7 +11,6 @@ const testData = [
 
 describe.only('user data utilities', () => {  
     test('calculate user with most messages', () => {
-      testSeedData.then((data)=> console.log(data))
      expect(mostActiveUser(testData)).toBe(1)
     });
 
