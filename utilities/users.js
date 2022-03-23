@@ -1,4 +1,5 @@
 const {tidy, count, max, groupBy, summarize, sum, mutate} = require('@tidyjs/tidy') 
+const {message, mention, reaction} = require('../server/db')
 
 //these functions assemble data from raw sqlize query
 

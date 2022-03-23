@@ -1,4 +1,5 @@
 const {mostActiveUser, mostIgnoredUser} = require('./users.js')
+const {message, mention, reaction} = require('../server/db')
 
 const testData = [
   {userId: 1, content: 'blah', reactions: [{id: 3}, {id: 4}]},
@@ -10,7 +11,7 @@ const testData = [
 
 describe.only('user data utilities', () => {  
     test('calculate user with most messages', () => {
-      
+      testSeedData.then((data)=> console.log(data))
      expect(mostActiveUser(testData)).toBe(1)
     });
 
