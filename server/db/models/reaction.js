@@ -15,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   reaction.init({
-    reactorId: DataTypes.BIGINT
+    authorId: DataTypes.BIGINT,
+    reactorId: DataTypes.BIGINT,
+    emojiId: DataTypes.BIGINT,
+    emojiName: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'reaction',
