@@ -6,13 +6,8 @@ module.exports = {
     database: "mira-db",
     host: 'localhost',
     port: "5432",
+    logging: false,
     dialect: "postgres",
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
-      }
-    }
   },
   test: {
     username: "root",
@@ -20,6 +15,7 @@ module.exports = {
     database: "database_test",
     host: process.env.DATABASE_URL,
     port: process.env.PORT,
+    logging: false,
     dialect: "postgres",
     dialectOptions: {
       ssl: {
