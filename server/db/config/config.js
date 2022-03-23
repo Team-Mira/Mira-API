@@ -10,11 +10,11 @@ module.exports = {
     dialect: "postgres",
   },
   test: {
-    username: "christopher",
-    password: '1226Bazan07',
-    database: "mira-db",
-    host: 'localhost',
-    port: '5432',
+    username: "",
+    password: '',
+    database: "",
+    host: '',
+    port: '',
     logging: false,
     dialect: "postgres",
     dialectOptions: {
