@@ -80,9 +80,19 @@ function mostLongWinded(messages) {
           (d) => d.messages.length
         ),
       })
-    );
+    )
+    authorMessages.sort(a, b => a.avgLength > b.avgLength)
+    return authorMessages[0]
   } catch (error) {
     throw error;
   }
 }
 
+function townGossip(mentions) {
+  try {
+    mentionsByAuthor = tidy(mentions, count('authorId', {sort:true}))
+    return mentionsByAuthor[0].authorId
+  } catch(error) {
+    throw(error)
+  }
+}
