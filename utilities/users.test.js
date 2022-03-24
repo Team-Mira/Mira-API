@@ -1,19 +1,25 @@
-const {highestMessageUser} = require('./users.js')
+const {mostActiveUser, mostIgnoredUser} = require('./users.js')
+const {message, mention, reaction} = require('../server/db')
 
-describe('user data utilities', () => {  
+const testData = [
+  {userId: 1, content: 'blah', reactions: [{id: 3}, {id: 4}]},
+  {userId: 1, content: 'blah', reactions: [{id: 4}]},
+  {userId: 1, content: 'blah', reactions:[ {id: 5}]},
+  {userId: 0, content: 'blah', reactions: [{id: 6}]},
+  {userId: 0, content: 'blah', reactions: [{id: 7}]}
+]
+
+describe.only('user data utilities', () => {  
     test('calculate user with most messages', () => {
-      const testData = [
-        {userId: 1, message: 'blah'},
-        {userId: 1, message: 'blah'},
-        {userId: 1, message: 'blah'},
-        {userId: 0, message: 'blah'},
-        {userId: 0, message: 'blah'}
-    ]
-     expect(highestMessageUser(testData)).toBe(1)
+     expect(mostActiveUser(testData)).toBe(1)
     });
 
     test('handle errors', () => {
         const badData = []
-        expect(() => highestMessageUser(badData)).toThrow()
+        expect(() => mostActiveUser(badData)).toThrow()
+    })
+
+    test('ignored user returns userId of user with lowest ratio of reactions to messages', () => {
+      expect(mostIgnoredUser(testData)).toBe(1)
     })
   });
