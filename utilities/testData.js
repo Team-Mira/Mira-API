@@ -1,4 +1,8 @@
 const{message, reaction, mention} = require('../server/db')
+const{updateUserGraph} = require('./pairs')
+const path = require('path')
+
+
 const fs = require('fs')
 const getData = async () => {
     const messages = await message.findAll({include: 'reactions'})
@@ -8,9 +12,9 @@ const getData = async () => {
 }
 
 
-const writeData = async () => {
-    const cData = await getData()
-   fs.writeFile('./test.txt', JSON.stringify(cData), err => {
+const writeData = async (data) => {
+    const cData = await data
+   fs.writeFile('./graphTest.json', JSON.stringify(cData), err => {
         if (err) {
           console.error(err)
           return
@@ -19,4 +23,6 @@ const writeData = async () => {
       })
 }
 
-writeData()
+let updateData = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./test.json"), 'utf-8'))
+let {messages, mentions, reactions} = updateData
+writeData(updateUserGraph(messages, mentions, reactions))
