@@ -63,11 +63,24 @@
       "channelId": "953680127726866445",
       "guildId": "953680127726866442",
       "content": "A test with an emoji 😄",
-      "isReply": false,
-      "repliedUserId": null,
+      "isReply": true,
+      "repliedUserId": "393621989983780876",
       "mentionedEveryone": false,
       "createdAt": "2022-03-23T17:05:23.986Z",
       "updatedAt": "2022-03-23T17:05:23.986Z",
+      "reactions": []
+    },
+    {
+      "id": "956884974731137054",
+      "authorId": "274764470503604224",
+      "channelId": "953680127726866445",
+      "guildId": "953680127726866442",
+      "content": "<@!393621989983780876>",
+      "isReply": false,
+      "repliedUserId": null,
+      "mentionedEveryone": false,
+      "createdAt": "2022-03-25T11:59:16.101Z",
+      "updatedAt": "2022-03-25T11:59:16.101Z",
       "reactions": []
     },
     {
@@ -94,6 +107,19 @@
       "mentionedEveryone": false,
       "createdAt": "2022-03-23T17:28:44.609Z",
       "updatedAt": "2022-03-23T17:28:44.609Z",
+      "reactions": []
+    },
+    {
+      "id": "956884679875776543",
+      "authorId": "274764470503604224",
+      "channelId": "953680127726866445",
+      "guildId": "953680127726866442",
+      "content": "User Graph test messages",
+      "isReply": false,
+      "repliedUserId": null,
+      "mentionedEveryone": false,
+      "createdAt": "2022-03-25T11:58:05.947Z",
+      "updatedAt": "2022-03-25T11:58:05.947Z",
       "reactions": []
     },
     {
@@ -162,6 +188,19 @@
       "reactions": []
     },
     {
+      "id": "956884717502877737",
+      "authorId": "274764470503604224",
+      "channelId": "953680127726866445",
+      "guildId": "953680127726866442",
+      "content": "interacting with messages",
+      "isReply": false,
+      "repliedUserId": null,
+      "mentionedEveryone": false,
+      "createdAt": "2022-03-25T11:58:14.850Z",
+      "updatedAt": "2022-03-25T11:58:14.850Z",
+      "reactions": []
+    },
+    {
       "id": "956243017478590465",
       "authorId": "393621989983780876",
       "channelId": "953680127726866445",
@@ -198,7 +237,7 @@
     },
     {
       "id": 3,
-      "authorId": "274764470503604224",
+      "authorId": "393621989983780876",
       "reactorId": "274764470503604224",
       "emojiId": null,
       "emojiName": "🎉",
@@ -211,7 +250,7 @@
     {
       "id": 3,
       "mentionedId": "274764470503604224",
-      "authorId": "274764470503604224",
+      "authorId": "393621989983780876",
       "createdAt": "2022-03-23T17:25:29.751Z",
       "updatedAt": "2022-03-23T17:25:29.751Z",
       "messageId": "956242294724509716"
@@ -231,6 +270,14 @@
       "createdAt": "2022-03-23T17:44:41.770Z",
       "updatedAt": "2022-03-23T17:44:41.770Z",
       "messageId": "956247128806666261"
+    },
+    {
+      "id": 7,
+      "mentionedId": "393621989983780876",
+      "authorId": "274764470503604224",
+      "createdAt": "2022-03-25T11:59:16.120Z",
+      "updatedAt": "2022-03-25T11:59:16.120Z",
+      "messageId": "956884974731137054"
     }
   ]
 }
