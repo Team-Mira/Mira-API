@@ -1,4 +1,4 @@
-const {mostActiveUser, mostIgnoredUser} = require('./users.js')
+const {mostActiveUser, mostIgnoredUser, mostLongWinded, mostUsedReaction, townGossip} = require('./users.js')
 const {generatePairs, pairStrength} = require('./pairs')
 const {message, mention, reaction} = require('../server/db')
 const fs = require('fs')
@@ -17,21 +17,20 @@ describe('user data utilities', () => {
         expect(() => mostActiveUser(badData)).toThrow()
     })
 
+    test('most used reaction', () => {
+      expect(mostUsedReaction(testData.reactions)).toBe('♥️')
+     }); 
     test('ignored user returns userId of user with lowest ratio of reactions to messages', () => {
       expect(mostIgnoredUser(testData.messages)).toBe('274764470503604224')
     })
 
     test('most verbose to return userId with highest average count', () => {
-      expect(mostIgnoredUser(testData.messages)).toBe('274764470503604224')
+      expect(mostLongWinded(testData.messages)).toBe('274764470503604224')
     })
 
     test('town gossip returns the user who authored the most mentions', () => {
-      expect(mostIgnoredUser(testData.mentions)).toBe('274764470503604224')
+      expect(townGossip(testData.mentions)).toBe('393621989983780876')
     })
 
-    test.only('pairStrength', () => {
-      pairStrength(generatePairs(testData.messages)).then((res) => console.log(res))
-      
-    })
 
   });
