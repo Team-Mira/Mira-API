@@ -1,0 +1,2 @@
+function timeSpread(messages, channelId) {
+}
