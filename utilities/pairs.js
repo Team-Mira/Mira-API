@@ -1,7 +1,7 @@
-const { expand, tidy, distinct, map } = require('@tidyjs/tidy');
+const { expand, tidy, distinct, map, count } = require('@tidyjs/tidy');
 const {message, mention, reaction} = require('../server/db')
 module.exports = { generatePairs, pairStrength, updateUserGraph};
-function getAuthors(messages) {
+function getAuthors(messages, mentions) {
     return tidy(
         messages,
         distinct(['authorId']),
@@ -40,21 +40,19 @@ function pairStrength(pair, messages, mentions, reactions){
     })
 
     let pairMentions = mentions.filter(mention=> {
-        let sourceMentioned = mention.authorId === pair[0].authorId && mention.mentionedUser === pair[1].authorId
-        let targetMentioned = mention.authorId === pair[1].authorId && mention.mentionedUser === pair[0].authorId
+        let sourceMentioned = mention.authorId === pair[0].authorId && mention.mentionedId === pair[1].authorId
+        let targetMentioned = mention.authorId === pair[1].authorId && mention.mentionedId === pair[0].authorId
         return sourceMentioned || targetMentioned
     })
 
     let pairReactions = reactions.filter(reaction=> {
         let sourceReacted = reaction.reactorId === pair[0].authorId && reaction.authorId === pair[1].authorId
-        let targetReacted = mention.reactorId === pair[1].authorId && mention.authorId === pair[0].authorId
-        return sourceMentioned || targetMentioned)
+        let targetReacted = reaction.reactorId === pair[1].authorId && reaction.authorId === pair[0].authorId
+        return sourceReacted || targetReacted
+    })
     
-    pairReplies = tidy(pairReplies, count('messages'))
-    pairMentions = tidy(pairMentions, count('mentions'))
-    pairReactions = tidy(pairReactions, count('reactions'))
-
-    return pairReplies.messages + pairMentions.mentions + pairReactions.reactions
+    console.log(pairReplies.length, pairMentions.length, pairReactions.length)
+    return pairReplies.length + pairMentions.length + pairReactions.length
 }
 
 //generates nodes and links from provided messages mentions and reactions
