@@ -9,8 +9,9 @@ let testData = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./test.json")
 describe('user data utilities', () => {  
 
     test('calculate user with most messages', () => {
+
      expect(mostActiveUser(testData.messages)).toBe('274764470503604224')
-    });
+
 
     test('handle errors', () => {
         const badData = []
@@ -33,4 +34,6 @@ describe('user data utilities', () => {
     })
 
 
+
   });
+
