@@ -51,7 +51,6 @@ function pairStrength(pair, messages, mentions, reactions){
         return sourceReacted || targetReacted
     })
     
-    console.log(pairReplies.length, pairMentions.length, pairReactions.length)
     return pairReplies.length + pairMentions.length + pairReactions.length
 }
 

@@ -6,7 +6,7 @@ const {
   mostLongWinded,
   townGossip,
 } = require('./users');
-const updateUserGraph = require('./pairs')
+const {updateUserGraph} = require('./pairs')
 
 module.exports = async (messages, mentions, reactions) => {
   return await Promise.allSettled([ mostActiveUser(messages),
@@ -15,7 +15,7 @@ module.exports = async (messages, mentions, reactions) => {
     mostIgnoredUser(messages),
     mostLongWinded(messages),
     townGossip(mentions),
-    // updateUserGraph(messages, mentions, reactions)
+    updateUserGraph(messages, mentions, reactions)
 ]
 );
 };
