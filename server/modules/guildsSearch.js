@@ -5,9 +5,12 @@ async function guildsSearch(id){
     if(guild.members.cache.has(id)){
 
       // be sure to verify is user can see the channel
-      const channels = guild.channels.cache.map(channel => {return {id: channel.id, name: channel.name}})
+      const channels = guild.channels.cache.map(
+        channel => {
+            return {id: channel.id, name: channel.name, type: channel.type}
+          })
 
-      return {id: guild.id, name: guild.name, channels }
+      return {id: guild.id, name: guild.name, members: guild.memberCount, channels }
     }
   })
 
