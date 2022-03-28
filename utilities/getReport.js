@@ -6,16 +6,36 @@ const {
   mostLongWinded,
   townGossip,
 } = require('./users');
-const {updateUserGraph} = require('./pairs')
+const { updateUserGraph } = require('./pairs');
+const {
+  topChannel,
+  topWord,
+  topReaction,
+  hottestMessage
+} = require('./singleUser')
 
-module.exports = async (messages, mentions, reactions) => {
-  return await Promise.allSettled([ mostActiveUser(messages),
-    mostActiveReactor(reactions),
-    mostUsedReaction(reactions),
-    mostIgnoredUser(messages),
-    mostLongWinded(messages),
-    townGossip(mentions),
-    updateUserGraph(messages, mentions, reactions)
+
+const getReport = async (messages, mentions, reactions) => {
+  return {
+    mostActiveUser: mostActiveUser(messages) ,
+    mosActiveReactor: mostActiveReactor(reactions) ,
+    mostUsedReaction: mostUsedReaction(reactions) ,
+    townGossip: townGossip(mentions) ,
+    updateUserGraph: updateUserGraph(messages, mentions, reactions)
+  }
+  ;
+}
+
+const getUserReport = async (messages, reactions) => {
+return Promise.all([
+  {topChannel: topChannel(messages)},
+  {topWord: topWord(messages)},
+  // {topReaction: topReaction(reactions)},
+  {hottestMessages: hottestMessage(messages)}
 ]
-);
-};
+
+
+)
+}
+
+module.exports = {getReport, getUserReport}
