@@ -8,3 +8,5 @@ function timeSpread(messages, channelId) {
 
   return timeArray;
 }
+
+module.exports = timeSpread
