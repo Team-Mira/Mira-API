@@ -49,7 +49,7 @@ function topWord(messages, userId) {
 
 function topReaction(reactions, userId) {
   let userReactions = reactions.filter(reaction => reaction.authorId = userId)
-  let reactionCount = tidy(userReactions, count('emojiId', {sort: true}))
+  let reactionCount = tidy(userReactions, count('emojiName', {sort: true}))
   return reactionCount[0].emojiId
 
 }
