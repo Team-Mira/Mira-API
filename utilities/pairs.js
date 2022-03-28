@@ -5,7 +5,7 @@ function getAuthors(messages, mentions) {
     return tidy(
         messages,
         distinct(['authorId']),
-        map((d) => ({ authorId: d.authorId})) 
+        map((d) => ({ id: d.authorId})) 
       );
 }
 function generatePairs(messages) {
@@ -51,7 +51,6 @@ function pairStrength(pair, messages, mentions, reactions){
         return sourceReacted || targetReacted
     })
     
-    console.log(pairReplies.length, pairMentions.length, pairReactions.length)
     return pairReplies.length + pairMentions.length + pairReactions.length
 }
 

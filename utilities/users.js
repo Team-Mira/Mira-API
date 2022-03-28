@@ -74,10 +74,9 @@ function mostLongWinded(messages) {
       messages,
       groupBy('authorId', groupBy.entriesObject())
     );
-
     authorMessages.map(collection => {
       let wordCount = collection.values.reduce((count, msg) => {
-        msg.content.length + count}, 0)
+        msg.content.split(' ').length + count}, 0)
       let avgLength = wordCount / collection.values.length
       return {...collection, avgLength: avgLength}
     })
