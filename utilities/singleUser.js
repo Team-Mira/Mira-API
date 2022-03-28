@@ -12,8 +12,7 @@ module.exports = {
 // takes in array of all messages
 // finds all channels associated with user, then the most common channelId
 //returns that channelID
-function topChannel(messages, userId) {
-  let userMessages = messages.filter(message => message.userId = userId)
+function topChannel(userMessages) {
   try {
     let channelCount = tidy(userMessages, count('channelId', {sort:true}))
     return channelCount[0].channelId
@@ -22,10 +21,8 @@ function topChannel(messages, userId) {
     throw new Error('top Channel Error')
   }
 }
-function topWord(messages, userId) {
-  let userMessages = messages.filter(message => message.userId = userId)
+function topWord(userMessages) {
   let messageContent = userMessages.map(message => message.content)
-
   let words = {}
   for (let message in messageContent) {
     for (let word in message) {
@@ -47,23 +44,15 @@ function topWord(messages, userId) {
   return topWord
 }
 
-function topReaction(reactions, userId) {
-  let userReactions = reactions.filter(reaction => reaction.authorId = userId)
+function topReaction(userReactions) {
   let reactionCount = tidy(userReactions, count('emojiName', {sort: true}))
-  return reactionCount[0].emojiId
+  return reactionCount
 
 }
 
-function hottestMessage(reactions, messages, userId) {
-  let userReactions = reactions.filter(reaction => reaction.authorId = userId)
-  let reactionCount = tidy(userReactions, count('messageId', {sort: true}))
-
-  let hottestMessageId = reactionCount[0].hottestMessageId
-
-  for(let message of messages) {
-    if (message.id === hottestMessageId)
-      return message.content
-  }
+function hottestMessage(userMessages) {
+  let reactionCount = tidy(userMessages, count('reactions', {sort: true}))
+  return reactionCount[0].content
 
 }
 

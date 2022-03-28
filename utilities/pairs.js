@@ -5,7 +5,11 @@ function getAuthors(messages, mentions) {
     return tidy(
         messages,
         distinct(['authorId']),
-        map((d) => ({ authorId: d.authorId})) 
+<<<<<<< HEAD
+        map((d) => ({ authorId: d.authorId}))
+=======
+        map((d) => ({ id: d.authorId}))
+>>>>>>> main
       );
 }
 function generatePairs(messages) {
@@ -21,7 +25,7 @@ function mCombinations(set, m){
         return [set]
     } else if(m===1){
         return set.map(x => [x])
-    } 
+    }
         for(let i=0; i<=set.length-m; i++){
             let car = set.slice(i, i+1)
             let cdr = mCombinations(set.slice(i+1), m-1)
@@ -50,14 +54,13 @@ function pairStrength(pair, messages, mentions, reactions){
         let targetReacted = reaction.reactorId === pair[1].authorId && reaction.authorId === pair[0].authorId
         return sourceReacted || targetReacted
     })
-    
-    console.log(pairReplies.length, pairMentions.length, pairReactions.length)
+
     return pairReplies.length + pairMentions.length + pairReactions.length
 }
 
 //generates nodes and links from provided messages mentions and reactions
-//hopefully we can provide incremental updates given messages since a certain date, and 
-//combine the updates into the previous 
+//hopefully we can provide incremental updates given messages since a certain date, and
+//combine the updates into the previous
 function updateUserGraph(messages, mentions, reactions) {
     const nodes = getAuthors(messages)
     const links = []
