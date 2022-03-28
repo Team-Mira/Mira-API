@@ -1,9 +1,7 @@
-function timeSpread(messages, channelId) {
-  let channelMessages = messages.filter(message => message.channelId = channelId)
-
-  let timeArray = new Array(24);
-  for (messages in channelMessages) {
-    timeArray[messages.createdAt.getHours()]++
+function timeSpread(messages) {
+ let timeArray = new Array(24);
+  for (let message in messages) {
+    timeArray[message.createdAt.getHours()]++
   }
 
   return timeArray;
