@@ -5,11 +5,7 @@ function getAuthors(messages, mentions) {
     return tidy(
         messages,
         distinct(['authorId']),
-<<<<<<< HEAD
-        map((d) => ({ authorId: d.authorId}))
-=======
         map((d) => ({ id: d.authorId}))
->>>>>>> main
       );
 }
 function generatePairs(messages) {
