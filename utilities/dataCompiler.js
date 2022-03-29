@@ -22,6 +22,8 @@ const dataCompiler = async (guildId) => {
   const { totalMessages, totalReactions, totalReplies } = await grabMessages(cMessages, cReactions)
   const { activeUsers } = await grabUsers(cMessages)
 
+  console.log(cMessages)
+
   const cData = {
     name: cGuild.name,
     id: cGuild.id,
@@ -34,7 +36,7 @@ const dataCompiler = async (guildId) => {
     // mosActiveReactor: mostActiveReactor(cReactions) ,
     // mostUsedReaction: mostUsedReaction(cReactions) ,
     // townGossip: townGossip(cMentions) ,
-    // updateUserGraph: updateUserGraph(cMessages, cMentions, cReactions),
+    updateUserGraph: updateUserGraph(cMessages, cMentions, cReactions),
     // mostIgnoredUser: mostIgnoredUser(cMessages),
     // mostLongWinded: mostLongWinded(cMessages)
 
