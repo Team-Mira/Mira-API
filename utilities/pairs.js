@@ -34,20 +34,20 @@ function mCombinations(set, m){
 // split these into multiple functions for updating aspects of state of map
 function pairStrength(pair, messages, mentions, reactions){
     let pairReplies = messages.filter(message=> {
-        let sourceReplied = message.authorId === pair[0].authorId && message.repliedUserId === pair[1].authorId
-        let targetReplied = message.authorId === pair[1].authorId && message.repliedUserId === pair[0].authorId
+        let sourceReplied = message.authorId === pair[0].id && message.repliedUserId === pair[1].id
+        let targetReplied = message.authorId === pair[1].id && message.repliedUserId === pair[0].id
         return sourceReplied || targetReplied
     })
 
     let pairMentions = mentions.filter(mention=> {
-        let sourceMentioned = mention.authorId === pair[0].authorId && mention.mentionedId === pair[1].authorId
-        let targetMentioned = mention.authorId === pair[1].authorId && mention.mentionedId === pair[0].authorId
+        let sourceMentioned = mention.authorId === pair[0].id && mention.mentionedId === pair[1].id
+        let targetMentioned = mention.authorId === pair[1].id && mention.mentionedId === pair[0].id
         return sourceMentioned || targetMentioned
     })
 
     let pairReactions = reactions.filter(reaction=> {
-        let sourceReacted = reaction.reactorId === pair[0].authorId && reaction.authorId === pair[1].authorId
-        let targetReacted = reaction.reactorId === pair[1].authorId && reaction.authorId === pair[0].authorId
+        let sourceReacted = reaction.reactorId === pair[0].id && reaction.authorId === pair[1].id
+        let targetReacted = reaction.reactorId === pair[1].id && reaction.authorId === pair[0].id
         return sourceReacted || targetReacted
     })
     
@@ -63,7 +63,7 @@ function updateUserGraph(messages, mentions, reactions) {
     const pairs = generatePairs(messages)
     pairs.map(pair => {
         let strength = pairStrength(pair, messages, mentions, reactions)
-        links.push({from: pair[0].authorId, to: pair[1].authorId, value: strength})
+        edges.push({from: pair[0].id, to: pair[1].id, value: strength})
     })
     //return object with nodes and links
     return {nodes, edges}
