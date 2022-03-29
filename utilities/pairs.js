@@ -59,12 +59,12 @@ function pairStrength(pair, messages, mentions, reactions){
 //combine the updates into the previous 
 function updateUserGraph(messages, mentions, reactions) {
     const nodes = getAuthors(messages)
-    const links = []
+    const edges = []
     const pairs = generatePairs(messages)
     pairs.map(pair => {
         let strength = pairStrength(pair, messages, mentions, reactions)
-        links.push({source: pair[0].authorId, target: pair[1].authorId, value: strength})
+        links.push({from: pair[0].authorId, to: pair[1].authorId, value: strength})
     })
     //return object with nodes and links
-    return {nodes, links}
+    return {nodes, edges}
 }
