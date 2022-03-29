@@ -22,8 +22,6 @@ const dataCompiler = async (guildId) => {
   const { totalMessages, totalReactions, totalReplies } = await grabMessages(cMessages, cReactions)
   const { activeUsers } = await grabUsers(cMessages)
 
-  console.log(cMessages)
-
   const cData = {
     name: cGuild.name,
     id: cGuild.id,

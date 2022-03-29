@@ -61,6 +61,9 @@ function updateUserGraph(messages, mentions, reactions) {
     const nodes = getAuthors(messages)
     const edges = []
     const pairs = generatePairs(messages)
+
+    console.log(pairs)
+
     pairs.map(pair => {
         let strength = pairStrength(pair, messages, mentions, reactions)
         edges.push({from: pair[0].id, to: pair[1].id, value: strength})
