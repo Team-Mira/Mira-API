@@ -34,7 +34,7 @@ const dataCompiler = async (guildId) => {
     // mosActiveReactor: mostActiveReactor(cReactions) ,
     // mostUsedReaction: mostUsedReaction(cReactions) ,
     // townGossip: townGossip(cMentions) ,
-    updateUserGraph: updateUserGraph(cMessages, cMentions, cReactions),
+    // updateUserGraph: updateUserGraph(cMessages, cMentions, cReactions),
     // mostIgnoredUser: mostIgnoredUser(cMessages),
     // mostLongWinded: mostLongWinded(cMessages)
 
