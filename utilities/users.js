@@ -8,6 +8,8 @@ module.exports = {
   mostActiveReactor,
   mostUsedReaction,
   mostIgnoredUser,
+  mostLongWinded,
+  townGossip
 };
 
 //calculate user with the most messages
@@ -37,8 +39,8 @@ function mostActiveReactor(reactions) {
 //takes array of reactions, computes sorted list of emojiIds by use, returns emojiId
 function mostUsedReaction(reactions) {
   try {
-    let reactionCount = tidy(reactions, count('emojiId', { sort: true }));
-    return reactionCount[0].emojiId;
+    let reactionCount = tidy(reactions, count('emojiName', { sort: true }));
+    return reactionCount[0].emojiName
   } catch (error) {
     throw new Error('Reaction Object Empty');
   }
@@ -70,19 +72,16 @@ function mostLongWinded(messages) {
   try {
     let authorMessages = tidy(
       messages,
-      groupBy('userId', groupBy.entriesObject())
+      groupBy('authorId', groupBy.entriesObject())
     );
-    authorMessages = tidy(
-      authorMessages,
-      mutate({
-        avgLength: rate(
-          (d) => d.messages.reduce((msg, sum) => msg.content.length + sum, 0),
-          (d) => d.messages.length
-        ),
-      })
-    )
-    authorMessages.sort(a, b => a.avgLength > b.avgLength)
-    return authorMessages[0]
+    authorMessages.map(collection => {
+      let wordCount = collection.values.reduce((count, msg) => {
+        msg.content.split(' ').length + count}, 0)
+      let avgLength = wordCount / collection.values.length
+      return {...collection, avgLength: avgLength}
+    })
+    authorMessages.sort((a, b) => a.avgLength > b.avgLength)
+    return authorMessages[0].key
   } catch (error) {
     throw error;
   }
@@ -96,3 +95,4 @@ function townGossip(mentions) {
     throw(error)
   }
 }
+

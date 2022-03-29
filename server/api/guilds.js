@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const guildsSearch = require('../modules/guildsSearch')
 const guildValidation = require('../modules/guildValidation')
-const guildTest = require('../modules/guildTest')
 const guildIds = require('../modules/guildIds')
 
 
@@ -27,15 +26,4 @@ router.post('/access', async (req, res, next) => {
   const hasAccess = await guildValidation(userId, guildId)
 
   res.send(hasAccess)
-})
-
-
-
-
-
-// Remove before production!!!!!!!
-router.get('/test', async (req, res, next) => {
-  await guildTest()
-
-  res.send('test')
 })
