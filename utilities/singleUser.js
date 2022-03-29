@@ -1,9 +1,9 @@
-const {tidy, count} = require('@tidyjs/tidy')
+const {tidy, count, mutate} = require('@tidyjs/tidy')
 //these functions assemble data from raw sqlize query
 
 module.exports = {
   topChannel,
-  topWord,
+  wordCount,
   topReaction,
   hottestMessage
 }
@@ -21,11 +21,12 @@ function topChannel(userMessages) {
     throw new Error('top Channel Error')
   }
 }
-function topWord(userMessages) {
+function wordCount(userMessages) {
   let messageContent = userMessages.map(message => message.content)
   let words = {}
-  for (let message in messageContent) {
-    for (let word in message) {
+  for (let message of messageContent) {
+    wordArr = message.split(' ')
+    for (let word of wordArr) {
       if (word in words)
         words[word] += 1
       else
@@ -33,25 +34,18 @@ function topWord(userMessages) {
     }
   }
 
-  let topWordCount = 0
-  let topWord = "asdf"
-  for (let [key, value] of Object.entries(words)) {
-    if (key.length > 2 && value > topWordCount) {
-      topWordCount = value
-      topWord = key;
-    }
-  }
+  let topWord = Object.keys(words).reduce((a, b) => words[a] > words[b] ? a : b);
   return topWord
 }
 
 function topReaction(userReactions) {
   let reactionCount = tidy(userReactions, count('emojiName', {sort: true}))
-  return reactionCount
+  return reactionCount[0].emojiName
 
 }
 
 function hottestMessage(userMessages) {
-  let reactionCount = tidy(userMessages, count('reactions', {sort: true}))
+  let reactionCount = tidy(userMessages, mutate(count('reactions', {sort: true})))
   return reactionCount[0].content
 
 }
