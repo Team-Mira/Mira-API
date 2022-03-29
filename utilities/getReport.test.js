@@ -1,4 +1,4 @@
-const getReport = require('./getReport')
+const {getReport} = require('./getReport')
 const fs = require('fs')
 const path = require('path')
 let testData = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./test.json"), 'utf-8'))

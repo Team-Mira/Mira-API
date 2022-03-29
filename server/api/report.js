@@ -25,19 +25,16 @@ router.get('/:guildId', async (req, res, next) => {
 //expect array of channelIds in body
 router.get('/channel/:channelId', async (req,res,next) => {
     try{
-
-       let channelReports = Promise.all(req.params.channelIds.map(async ({channelId}) => {
-            let messages = await message.findAll({
+        const {channelId} = req.params
+        let messages = await message.findAll({
                 where: { channelId: channelId },
                 include: ['reactions', 'mentions'],
               });
             messages = messages.map(message=> message.dataValues)
             let reactions = messages.flatMap(message => message.reactions)
             let mentions = messages.flatMap(message => message.mentions)  
-            let channelReport = await getReport(messages, mentions, reactions)  
-            return {channelId, channelReport}
-        }))
-        res.send(await channelReports)
+            let channelReport = await getReport(messages, mentions, reactions) 
+        res.send(await channelReport)
         
     }catch(error){
         next(error)
