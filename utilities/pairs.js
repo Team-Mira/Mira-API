@@ -25,7 +25,7 @@ function mCombinations(set, m){
         for(let i=0; i<=set.length-m; i++){
             let car = set.slice(i, i+1)
             let cdr = mCombinations(set.slice(i+1), m-1)
-            combs.push(cdr.map(comb => car.concat(comb)))
+            cdr.map(comb => combs.push(car.concat(comb)))
         }
 
         return combs
