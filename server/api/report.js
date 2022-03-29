@@ -1,44 +1,54 @@
 const router = require('express').Router();
 const { message, mention, reaction } = require('../db');
 const {getReport, getUserReport} = require('../../utilities/getReport')
+const dataCompiler = require('../../utilities/dataCompiler')
 //expect body to include guildId to specify data necessary
+// router.get('/:guildId', async (req, res, next) => {
+//   try {
+//     //fetch messages, mentions, reactions that include guildId
+//     let {guildId} = req.params
+//     let messages = await message.findAll({
+//       where: { guildId: guildId },
+//       include: ['reactions', 'mentions'],
+//     });
+
+//     messages = messages.map(message=> message.dataValues)
+//     let reactions = messages.flatMap(message => message.reactions)
+//     let mentions = messages.flatMap(message => message.mentions)
+
+//     let guildReport = await getReport(messages, mentions, reactions)
+//     res.send({ guildId, guildReport});
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+//new get route
 router.get('/:guildId', async (req, res, next) => {
-  try {
-    //fetch messages, mentions, reactions that include guildId
-    let {guildId} = req.params
-    let messages = await message.findAll({
-      where: { guildId: guildId },
-      include: ['reactions', 'mentions'],
-    });
 
-    messages = messages.map(message=> message.dataValues)
-    let reactions = messages.flatMap(message => message.reactions)
-    let mentions = messages.flatMap(message => message.mentions)
+  const { guildId } = req.params
 
-    let guildReport = await getReport(messages, mentions, reactions)
-    res.send({ guildId, guildReport});
-  } catch (error) {
-    next(error);
-  }
-});
+  const cData = await dataCompiler(guildId)
+
+  res.send(cData)
+
+})
+
 
 //expect array of channelIds in body
 router.get('/channel/:channelId', async (req,res,next) => {
     try{
-
-       let channelReports = Promise.all(req.params.channelIds.map(async ({channelId}) => {
-            let messages = await message.findAll({
+        const {channelId} = req.params
+        let messages = await message.findAll({
                 where: { channelId: channelId },
                 include: ['reactions', 'mentions'],
               });
             messages = messages.map(message=> message.dataValues)
             let reactions = messages.flatMap(message => message.reactions)
+
             let mentions = messages.flatMap(message => message.mentions)  
-            let channelReport = await getReport(messages, mentions, reactions)  
-            return {channelId, channelReport}
-        }))
-        res.send(await channelReports)
-        
+            let channelReport = await getReport(messages, mentions, reactions) 
+        res.send(await channelReport)
     }catch(error){
         next(error)
     }
