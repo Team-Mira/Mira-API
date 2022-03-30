@@ -1,17 +1,6 @@
 const { expand, tidy, distinct, map, count } = require('@tidyjs/tidy');
 const {message, mention, reaction} = require('../server/db')
-module.exports = { generatePairs, pairStrength, updateUserGraph};
-function getAuthors(messages, mentions) {
-    return tidy(
-        messages,
-        distinct(['authorId']),
-        map((d) => ({ id: d.authorId}))
-      );
-}
-function generatePairs(messages) {
-  let authors = getAuthors(messages)
-  return mCombinations(authors, 2);
-}
+module.exports = { pairStrength, updateUserGraph};
 
 function mCombinations(set, m){
     let combs = []
@@ -30,6 +19,7 @@ function mCombinations(set, m){
 
         return combs
 }
+
 //calculate tally of replies, mentions and reactions between a user pair
 // split these into multiple functions for updating aspects of state of map
 function pairStrength(pair, messages, mentions, reactions){
@@ -57,12 +47,10 @@ function pairStrength(pair, messages, mentions, reactions){
 //generates nodes and links from provided messages mentions and reactions
 //hopefully we can provide incremental updates given messages since a certain date, and
 //combine the updates into the previous
-function updateUserGraph(messages, mentions, reactions) {
-    const nodes = getAuthors(messages)
+function updateUserGraph(messages, mentions, reactions, users) {
+    const nodes = Object.values(users)
     const edges = []
-    const pairs = generatePairs(messages)
-
-    console.log(pairs)
+    const pairs = mCombinations(nodes, 2);
 
     pairs.map(pair => {
         let strength = pairStrength(pair, messages, mentions, reactions)

@@ -1,17 +1,22 @@
-const grabUsers = async (cMessages) => {
-  const users = {}
+const colorCreator = require('./colorCreator')
 
-  cMessages.forEach(message => {
-    if(users[message.authorId]){
-      users[message.authorId] += 1
-    } else {
-      users[message.authorId] = 1
+const grabUsers = async (guild) => {
+  const users = guild.members.cache
+
+  const cUsers = {}
+
+  users.map(gm => {
+    if(!gm.user.bot){
+      cUsers[gm.user.id] = {
+        id: gm.user.id,
+        title: gm.nickname || gm.user.username,
+        image: gm.displayAvatarURL(),
+        color: colorCreator(gm.user.id).border
+      }
     }
   })
 
-  const activeUsers = Object.keys(users).length
-
-  return {activeUsers}
+  return cUsers
 }
 
 module.exports = grabUsers

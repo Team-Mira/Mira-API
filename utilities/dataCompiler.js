@@ -2,6 +2,7 @@ const client = require('../bot')
 const { message, reaction, mention } = require('../server/db/models')
 const grabChannels = require('./grabChannels')
 const grabMessages = require('./grabMessages')
+const grabActiveUsers = require('./grabActiveUsers')
 const grabUsers = require('./grabUsers')
 
 const {
@@ -19,22 +20,25 @@ const dataCompiler = async (guildId) => {
   const cMessages = await message.findAll({where: {guildId}, include: ['reactions', 'mentions']})
   const cMentions = cMessages.flatMap(message => message.mentions)
   const cReactions = cMessages.flatMap(message => message.reactions)
+  const cUsers = await grabUsers(cGuild)
   const { totalMessages, totalReactions, totalReplies } = await grabMessages(cMessages, cReactions)
-  const { activeUsers } = await grabUsers(cMessages)
+  const activeUsers = await grabActiveUsers(cMessages)
 
   const cData = {
     name: cGuild.name,
     id: cGuild.id,
+    icon: cGuild.iconURL(),
     totalMessages,
     totalReactions,
     totalReplies,
     activeUsers,
+    users: cUsers,
     channels: grabChannels(cGuild, cMessages),
     // mostActiveUser: mostActiveUser(cMessages) ,
     // mosActiveReactor: mostActiveReactor(cReactions) ,
     // mostUsedReaction: mostUsedReaction(cReactions) ,
     // townGossip: townGossip(cMentions) ,
-    updateUserGraph: updateUserGraph(cMessages, cMentions, cReactions),
+    updateUserGraph: updateUserGraph(cMessages, cMentions, cReactions, cUsers),
     // mostIgnoredUser: mostIgnoredUser(cMessages),
     // mostLongWinded: mostLongWinded(cMessages)
 
