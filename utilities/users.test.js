@@ -21,7 +21,7 @@ describe('user data utilities', () => {
 
   test('handle errors', () => {
     const badData = [];
-    expect(() => mostActiveUser(badData)).toThrow();
+    expect(() => mostActiveUser(badData)).not.toThrow();
   });
 
   test('most used reaction', () => {
