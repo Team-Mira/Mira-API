@@ -5,7 +5,7 @@ module.exports = router;
 
 router.post('/add', async (req, res, next) => {
   const { newReaction } = req.body
-  reaction.create(newReaction)
+  await reaction.create(newReaction)
   res.send('created')
 })
 

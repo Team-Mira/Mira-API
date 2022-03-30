@@ -6,7 +6,7 @@ module.exports = router;
 router.post('/add', async (req, res, next) => {
   const { newMessage } = req.body
 
-  message.create(newMessage)
+  await message.create(newMessage)
   res.send('created')
 })
 
