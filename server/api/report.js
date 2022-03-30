@@ -1,70 +1,48 @@
 const router = require('express').Router();
 const { message, mention, reaction } = require('../db');
-const {getReport, getUserReport} = require('../../utilities/getReport')
-const dataCompiler = require('../../utilities/dataCompiler')
-//expect body to include guildId to specify data necessary
-// router.get('/:guildId', async (req, res, next) => {
-//   try {
-//     //fetch messages, mentions, reactions that include guildId
-//     let {guildId} = req.params
-//     let messages = await message.findAll({
-//       where: { guildId: guildId },
-//       include: ['reactions', 'mentions'],
-//     });
+const dataCompiler = require('../../utilities/dataCompiler');
+const userCompiler = require('../../utilities/userCompiler')
+const guildUsers = require('../modules/guildUsers')
 
-//     messages = messages.map(message=> message.dataValues)
-//     let reactions = messages.flatMap(message => message.reactions)
-//     let mentions = messages.flatMap(message => message.mentions)
-
-//     let guildReport = await getReport(messages, mentions, reactions)
-//     res.send({ guildId, guildReport});
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 //new get route
 router.get('/:guildId', async (req, res, next) => {
+  try {
+    const { guildId } = req.params;
 
-  const { guildId } = req.params
+    const cData = await dataCompiler(guildId);
 
-  const cData = await dataCompiler(guildId)
-
-  res.send(cData)
-
-})
-
-
-//expect array of channelIds in body
-router.get('/channel/:channelId', async (req,res,next) => {
-    try{
-        const {channelId} = req.params
-        let messages = await message.findAll({
-                where: { channelId: channelId },
-                include: ['reactions', 'mentions'],
-              });
-            messages = messages.map(message=> message.dataValues)
-            let reactions = messages.flatMap(message => message.reactions)
-
-            let mentions = messages.flatMap(message => message.mentions)  
-            let channelReport = await getReport(messages, mentions, reactions) 
-        res.send(await channelReport)
-    }catch(error){
-        next(error)
-    }
-})
-
-//expect authorId in body
-router.get('/me/:authorId', async (req, res, next) => {
-  try{
-    let {authorId} = req.params
-    let messages = await message.findAll({where: {authorId: authorId}})
-    messages = messages.map(message=> message.dataValues)
-    let reactions = messages.flatMap(message => message.reactions)
-    let userReport = await getUserReport(messages,reactions)
-    res.send({authorId, userReport})
-    }catch(error){
-    next(error)
+    res.send(cData);
+  } catch (error) {
+    next(error);
   }
-})
+});
+
+router.get('/:guildId/users', async (req, res, next) => {
+  try {
+    const {guildId} = req.params
+    const cUsers = await guildUsers(guildId)
+
+    const usersData = [] 
+    for(let id of cUsers){
+      usersData.push(await userCompiler(id))
+    }
+    
+    res.send(usersData)
+  } catch (error) {
+    throw(error);
+  }
+});
+
+router.get('/user/:authorId', async (req, res, next) => {
+  try {
+    const {authorId} = req.params
+    const cUserData = await userCompiler(authorId)
+    res.send(cUserData)
+  } catch (error) {
+    next(error);
+  }
+});
+
+
 module.exports = router;
