@@ -8,17 +8,22 @@ const {
     hottestMessage
   } = require('./singleUser')
 
-  
+
   async function userCompiler(authorId) {
+    const user = await client.users.fetch(authorId)
+
     const userMessages = await message.findAll({where: {authorId: authorId}, include: ['reactions']})
-    userReactions = userMessages.flatMap(message => message.reactions)
+    const userReactions = userMessages.flatMap(message => message.reactions)
+
   return {
         id: authorId,
+        name: user.username,
+        avatar: user.avatarURL(),
         topChannel: topChannel(userMessages),
         wordCount: wordCount(userMessages),
         topReaction: topReaction(userReactions),
         hottestMessage: hottestMessage(userMessages)
     }
   }
-  
+
   module.exports = userCompiler

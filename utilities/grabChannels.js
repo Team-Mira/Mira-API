@@ -1,3 +1,4 @@
+const client = require('../bot')
 const colorCreator = require('./colorCreator')
 
 const grabChannels = (cGuild, cMessages) => {
@@ -5,7 +6,7 @@ const grabChannels = (cGuild, cMessages) => {
 
   cGuild.channels.cache.map(
     channel => {
-      if(channel.type === 'GUILD_TEXT'){
+      if(channel.type === 'GUILD_TEXT' && channel.viewable){
         channels.push({name: channel.name, id: channel.id, colors: colorCreator(channel.id)})
       }
     }

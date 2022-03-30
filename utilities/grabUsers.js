@@ -10,8 +10,10 @@ const grabUsers = async (guild) => {
       cUsers[gm.user.id] = {
         id: gm.user.id,
         title: gm.nickname || gm.user.username,
+        label: gm.nickname || gm.user.username,
         image: gm.displayAvatarURL(),
-        color: colorCreator(gm.user.id).border
+        color: colorCreator(gm.user.id).border,
+        font: {color: '#FFFFFF'}
       }
     }
   })
