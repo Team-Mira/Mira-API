@@ -54,7 +54,9 @@ function updateUserGraph(messages, mentions, reactions, users) {
 
     pairs.map(pair => {
         let strength = pairStrength(pair, messages, mentions, reactions)
-        edges.push({from: pair[0].id, to: pair[1].id, value: strength})
+        if(strength > 0){
+            edges.push({from: pair[0].id, to: pair[1].id, value: strength})
+        }
     })
     //return object with nodes and links
     return {nodes, edges}

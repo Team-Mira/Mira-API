@@ -23,11 +23,11 @@ router.get('/:guildId/users', async (req, res, next) => {
     const {guildId} = req.params
     const cUsers = await guildUsers(guildId)
 
-    const usersData = [] 
+    const usersData = []
     for(let id of cUsers){
       usersData.push(await userCompiler(id))
     }
-    
+
     res.send(usersData)
   } catch (error) {
     throw(error);
@@ -36,8 +36,10 @@ router.get('/:guildId/users', async (req, res, next) => {
 
 router.get('/user/:authorId', async (req, res, next) => {
   try {
+
     const {authorId} = req.params
     const cUserData = await userCompiler(authorId)
+
     res.send(cUserData)
   } catch (error) {
     next(error);
