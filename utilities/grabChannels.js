@@ -1,3 +1,4 @@
+const colorCreator = require('./colorCreator')
 
 const grabChannels = (cGuild, cMessages) => {
   const channels = []
@@ -5,7 +6,7 @@ const grabChannels = (cGuild, cMessages) => {
   cGuild.channels.cache.map(
     channel => {
       if(channel.type === 'GUILD_TEXT'){
-        channels.push({name: channel.name, id: channel.id,})
+        channels.push({name: channel.name, id: channel.id, colors: colorCreator(channel.id)})
       }
     }
   )

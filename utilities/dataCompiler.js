@@ -3,6 +3,7 @@ const { message, reaction, mention } = require('../server/db/models')
 const grabChannels = require('./grabChannels')
 const grabMessages = require('./grabMessages')
 const grabUsers = require('./grabUsers')
+const tempGrabUsers = require('./tempGrabUsers')
 
 const {
   mostActiveUser,
@@ -19,16 +20,19 @@ const dataCompiler = async (guildId) => {
   const cMessages = await message.findAll({where: {guildId}, include: ['reactions', 'mentions']})
   const cMentions = cMessages.flatMap(message => message.mentions)
   const cReactions = cMessages.flatMap(message => message.reactions)
+  const cUsers = await tempGrabUsers(cGuild)
   const { totalMessages, totalReactions, totalReplies } = await grabMessages(cMessages, cReactions)
   const { activeUsers } = await grabUsers(cMessages)
 
   const cData = {
     name: cGuild.name,
     id: cGuild.id,
+    icon: cGuild.iconURL(),
     totalMessages,
     totalReactions,
     totalReplies,
     activeUsers,
+    users: cUsers,
     channels: grabChannels(cGuild, cMessages),
     // mostActiveUser: mostActiveUser(cMessages) ,
     // mosActiveReactor: mostActiveReactor(cReactions) ,

@@ -17,7 +17,6 @@ module.exports = {
 //ties result in 'first come first serve' (earlier in messages array)
 function mostActiveUser(messages) {
   try {
-    console.log(messages)
     let authorCount = tidy(messages, count('authorId', { sort: true }));
     return authorCount[0].authorId;
   } catch (error) {
