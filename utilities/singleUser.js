@@ -1,12 +1,12 @@
-const {tidy, count} = require('@tidyjs/tidy')
+const { tidy, count, mutate } = require('@tidyjs/tidy');
 //these functions assemble data from raw sqlize query
 
 module.exports = {
   topChannel,
-  topWord,
+  wordCount,
   topReaction,
-  hottestMessage
-}
+  hottestMessage,
+};
 
 //finds the channel with the most messages for a user
 // takes in array of all messages
@@ -14,45 +14,50 @@ module.exports = {
 //returns that channelID
 function topChannel(userMessages) {
   try {
-    let channelCount = tidy(userMessages, count('channelId', {sort:true}))
-    return channelCount[0].channelId
-  }
-  catch(err) {
-    throw new Error('top Channel Error')
+    if (!userMessages.length) {
+      return null;
+    }
+    let channelCount = tidy(userMessages, count('channelId', { sort: true }));
+    return channelCount[0].channelId;
+  } catch (err) {
+    throw err;
   }
 }
-function topWord(userMessages) {
-  let messageContent = userMessages.map(message => message.content)
-  let words = {}
-  for (let message in messageContent) {
-    for (let word in message) {
-      if (word in words)
-        words[word] += 1
-      else
-        words[word] = 1;
+function wordCount(userMessages) {
+  if (!userMessages.length) {
+    return null;
+  }
+  let messageContent = userMessages.map((message) => message.content);
+  let words = {};
+  for (let message of messageContent) {
+    wordArr = message.split(' ');
+    for (let word of wordArr) {
+      if (word in words) words[word] += 1;
+      else words[word] = 1;
     }
   }
 
-  let topWordCount = 0
-  let topWord = "asdf"
-  for (let [key, value] of Object.entries(words)) {
-    if (key.length > 2 && value > topWordCount) {
-      topWordCount = value
-      topWord = key;
-    }
-  }
-  return topWord
+  let topWord = Object.keys(words).reduce((a, b) =>
+    words[a] > words[b] ? a : b
+  );
+  return topWord;
 }
 
 function topReaction(userReactions) {
-  let reactionCount = tidy(userReactions, count('emojiName', {sort: true}))
-  return reactionCount
-
+  if (!userReactions.length) {
+    return null;
+  }
+  let reactionCount = tidy(userReactions, count('emojiName', { sort: true }));
+  return reactionCount[0].emojiName;
 }
 
 function hottestMessage(userMessages) {
-  let reactionCount = tidy(userMessages, count('reactions', {sort: true}))
-  return reactionCount[0].content
-
+  let reactionCount = tidy(
+    userMessages,
+    mutate(count('reactions', { sort: true }))
+  );
+  if (!reactionCount.length) {
+    return null;
+  }
+  return reactionCount[0].content;
 }
-

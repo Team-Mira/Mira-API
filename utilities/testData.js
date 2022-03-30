@@ -14,7 +14,7 @@ const getData = async () => {
 
 const writeData = async (data) => {
     const cData = await data
-   fs.writeFile('./graphTest.json', JSON.stringify(cData), err => {
+   fs.writeFile('./test.json', JSON.stringify(cData), err => {
         if (err) {
           console.error(err)
           return
@@ -23,6 +23,4 @@ const writeData = async (data) => {
       })
 }
 
-let updateData = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./test.json"), 'utf-8'))
-let {messages, mentions, reactions} = updateData
-writeData(updateUserGraph(messages, mentions, reactions))
+writeData(getData())

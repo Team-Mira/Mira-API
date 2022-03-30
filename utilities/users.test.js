@@ -37,6 +37,6 @@ describe('user data utilities', () => {
   });
 
   test('town gossip returns the user who authored the most mentions', () => {
-    expect(townGossip(testData.mentions)).toBe('393621989983780876');
+    expect(townGossip(testData.mentions)).toBe('274764470503604224');
   });
 });
