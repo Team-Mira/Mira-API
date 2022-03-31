@@ -1,22 +1,9 @@
 const router = require('express').Router();
-const { reaction } = require('../db/models')
+const createReaction = require('../controllers/reaction/createReaction')
+const deleteReaction = require('../controllers/reaction/deleteReaction')
 
 module.exports = router;
 
-router.post('/add', async (req, res, next) => {
-  const { newReaction } = req.body
-  await reaction.create(newReaction)
-  res.send('created')
-})
+router.post('/add', createReaction)
 
-router.delete('/delete', async (req, res, next) => {
-  const { ids } = req.body
-  const cReaction = await reaction.findAll({
-    where: {
-      reactorId: ids.reactorId,
-      messageId: ids.messageId,
-      emojiId: ids.emojiId
-  }})
-  cReaction[0].destroy()
-  res.send('deleted')
-})
+router.delete('/delete', deleteReaction)
