@@ -92,8 +92,7 @@ function mostLongWinded(messages) {
     authorMessages = authorMessages.map(collection => {
       
       let wordCount = collection.values.reduce((count, msg) => {
-        
-        console.log(msg, count)
+
         if(msg.dataValues.content === undefined) {
           return count
         }

@@ -35,7 +35,7 @@ const dataCompiler = async (guildId) => {
     users: cUsers,
     channels: grabChannels(cGuild, cMessages),
     mostActiveUser: mostActiveUser(cMessages) ,
-    mosActiveReactor: mostActiveReactor(cReactions) ,
+    mostActiveReactor: mostActiveReactor(cReactions) ,
     mostUsedReaction: mostUsedReaction(cReactions) ,
     townGossip: townGossip(cMentions) ,
     updateUserGraph: updateUserGraph(cMessages, cMentions, cReactions, cUsers),
