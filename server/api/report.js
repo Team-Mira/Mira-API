@@ -14,7 +14,7 @@ router.get('/:guildId', async (req, res, next) => {
 
     res.send(cData);
   } catch (error) {
-    next(error);
+    throw(error);
   }
 });
 

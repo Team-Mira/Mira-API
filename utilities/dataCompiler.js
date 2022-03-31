@@ -34,13 +34,13 @@ const dataCompiler = async (guildId) => {
     activeUsers,
     users: cUsers,
     channels: grabChannels(cGuild, cMessages),
-    // mostActiveUser: mostActiveUser(cMessages) ,
-    // mosActiveReactor: mostActiveReactor(cReactions) ,
-    // mostUsedReaction: mostUsedReaction(cReactions) ,
-    // townGossip: townGossip(cMentions) ,
+    mostActiveUser: mostActiveUser(cMessages) ,
+    mostActiveReactor: mostActiveReactor(cReactions) ,
+    mostUsedReaction: mostUsedReaction(cReactions) ,
+    townGossip: townGossip(cMentions) ,
     updateUserGraph: updateUserGraph(cMessages, cMentions, cReactions, cUsers),
-    // mostIgnoredUser: mostIgnoredUser(cMessages),
-    // mostLongWinded: mostLongWinded(cMessages)
+    mostIgnoredUser: mostIgnoredUser(cMessages),
+    mostLongWinded: mostLongWinded(cMessages)
 
   }
 
