@@ -1,4 +1,4 @@
-const client = require('../../bot')
+const client = require('../../client')
 
 async function guildValidation(userId, guildId){
 

@@ -1,12 +1,10 @@
 const router = require('express').Router();
-const userIds = require('../controllers/userIds')
+const getUserGuilds = require('../controllers/users/getUserGuilds')
+const getUserIds = require('../controllers/users/getUserIds')
 
 
 module.exports = router;
 
-router.get('/', async (req, res, next) => {
+router.get('/:userId/guilds', getUserGuilds)
 
-  const ids = await userIds()
-
-  res.send(ids)
-})
+router.get('/ids', getUserIds)

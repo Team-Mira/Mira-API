@@ -1,4 +1,4 @@
-const client = require('../../bot')
+const client = require('../../client')
 
 async function guildUsers(guildId){
   const cGuild = await client.guilds.fetch(guildId)
