@@ -1,4 +1,4 @@
-const client = require('../bot')
+const client = require('../client')
 const { message, reaction, mention } = require('../server/db/models')
 
 const {

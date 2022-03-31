@@ -7,6 +7,6 @@ client.on('ready', () => {
   console.log(`Bot initiated!`);
 });
 
-client.login(process.env.DISCORD_TOKEN)
+client.login(process.env.BOT_TOKEN)
 
 module.exports = client

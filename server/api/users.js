@@ -1,12 +1,13 @@
 const router = require('express').Router();
-const userIds = require('../modules/userIds')
+const getUserGuilds = require('../controllers/users/getUserGuilds')
+const getUserIds = require('../controllers/users/getUserIds')
 
 
 module.exports = router;
 
-router.get('/', async (req, res, next) => {
+// Sends and array of objects with guild information and what channels the user
+// can see
+router.get('/:userId/guilds', getUserGuilds)
 
-  const ids = await userIds()
-
-  res.send(ids)
-})
+// Gets all user IDs for static paths
+router.get('/ids', getUserIds)

@@ -1,4 +1,3 @@
-const client = require('../bot')
 const colorCreator = require('./colorCreator')
 
 const grabChannels = (cGuild, cMessages) => {
