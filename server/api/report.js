@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { message, mention, reaction } = require('../db');
 const dataCompiler = require('../../utilities/dataCompiler');
 const userCompiler = require('../../utilities/userCompiler')
-const guildUsers = require('../modules/guildUsers')
+const guildUsers = require('../controllers/guildUsers')
 
 
 //new get route

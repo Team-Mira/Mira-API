@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const userIds = require('../modules/userIds')
+const userIds = require('../controllers/userIds')
 
 
 module.exports = router;

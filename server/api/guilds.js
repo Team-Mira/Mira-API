@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const guildsSearch = require('../modules/guildsSearch')
-const guildValidation = require('../modules/guildValidation')
-const guildIds = require('../modules/guildIds')
+const guildsSearch = require('../controllers/guildsSearch')
+const guildValidation = require('../controllers/guildValidation')
+const guildIds = require('../controllers/guildIds')
 
 
 module.exports = router;
