@@ -18,6 +18,7 @@ const grabChannels = (cGuild, cMessages) => {
 
     totalMessages.map(message => {
       const date = new Date(Date.parse(message.createdAt))
+      date.setUTCHours(-5)
       const hour = date.getHours()
       activity[hour] = activity[hour] + 1
     })

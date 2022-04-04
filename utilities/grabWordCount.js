@@ -5,7 +5,8 @@ const grabWordCount = (messages) => {
   messages.forEach(message => {
     const messageContent = message.content.replace(/<.*?>/g, '')
     const words = messageContent.split(' ')
-    words.forEach(word => {
+    words.forEach(e => {
+      const word = e.toLowerCase()
       if(word !== '' && word !== ' '){
         if(totalWords[word]){
           totalWords[word].value = totalWords[word].value + 1
