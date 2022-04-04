@@ -4,6 +4,7 @@ const grabChannels = require('./grabChannels')
 const grabMessages = require('./grabMessages')
 const grabActiveUsers = require('./grabActiveUsers')
 const grabUsers = require('./grabUsers')
+const grabWordCount = require('./grabWordCount')
 
 const {
   mostActiveUser,
@@ -32,6 +33,7 @@ const dataCompiler = async (guildId) => {
     totalReactions,
     totalReplies,
     activeUsers,
+    wordCloud: grabWordCount(cMessages),
     users: cUsers,
     channels: grabChannels(cGuild, cMessages),
     mostActiveUser: mostActiveUser(cMessages) ,
