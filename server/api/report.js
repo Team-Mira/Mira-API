@@ -14,11 +14,10 @@ router.get('/:guildId', async (req, res, next) => {
     if(guildId === 'demo'){
       const cData = await guildDataCompiler('956985200196350013')
       res.send(cData);
-      return
+    } else {
+      const cData = await guildDataCompiler(guildId);
+      res.send(cData);
     }
-
-    const cData = await guildDataCompiler(guildId);
-    res.send(cData);
   } catch (error) {
     throw(error);
   }
