@@ -11,8 +11,13 @@ router.get('/:guildId', async (req, res, next) => {
   try {
     const { guildId } = req.params;
 
-    const cData = await guildDataCompiler(guildId);
+    if(guildId === 'demo'){
+      const cData = await guildDataCompiler('956985200196350013')
+      res.send(cData);
+      return
+    }
 
+    const cData = await guildDataCompiler(guildId);
     res.send(cData);
   } catch (error) {
     throw(error);
@@ -58,6 +63,5 @@ router.get('/user/:authorId', async (req, res, next) => {
     next(error);
   }
 });
-
 
 module.exports = router;
