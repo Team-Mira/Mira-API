@@ -6,7 +6,6 @@ const getChannelIds = async (req, res, next) => {
 
   try{
     ids = client.channels.cache.map(channel => {
-      console.log(channel)
       if(channel.type !== 'GUILD_TEXT')
       return channel.id
     })

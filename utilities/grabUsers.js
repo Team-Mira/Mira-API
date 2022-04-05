@@ -8,8 +8,6 @@ const grabUsers = async (client, type) => {
     users = client.members.cache
   }
 
-  console.log(users)
-
   const cUsers = {}
 
   users.map(gm => {
