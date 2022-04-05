@@ -72,7 +72,7 @@ function mostUsedReaction(reactions) {
 
     const cReactions = Object.values(reactionCount).sort(reactionSort)
 
-    return cReactions
+    return cReactions.slice(0, 5)
     // {key: rank.emojiName, value: rank.n}
   } catch (error) {
     throw new Error('Reaction Object Empty');
