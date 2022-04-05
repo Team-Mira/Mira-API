@@ -20,10 +20,20 @@ const dataCompiler = async (guildId) => {
   const cGuild = await client.guilds.fetch(guildId)
   const cMessages = await message.findAll({where: {guildId}, include: ['reactions', 'mentions']})
   const cMentions = cMessages.flatMap(message => message.mentions)
-  const cReactions = cMessages.flatMap(message => message.reactions)
+
+  const cReactions = (cMessages.flatMap(message => message.reactions)).map((reaction) => {
+    if(reaction.emojiId){
+      reaction.url = `https://cdn.discordapp.com/emojis/${reaction.emojiId}`
+    } else {
+      reaction.url = null
+    }
+    return reaction
+  })
+
   const cUsers = await grabUsers(cGuild)
   const { totalMessages, totalReactions, totalReplies } = await grabMessages(cMessages, cReactions)
   const activeUsers = await grabActiveUsers(cMessages)
+
 
   const cData = {
     name: cGuild.name,

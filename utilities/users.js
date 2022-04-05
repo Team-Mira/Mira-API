@@ -48,8 +48,24 @@ function mostUsedReaction(reactions) {
     if(!reactions.length){
       return null
     }
-    let reactionCount = tidy(reactions, count('emojiName', { sort: true }));
-    return reactionCount.slice(0,5).map(rank=> ({key: rank.emojiName, value: rank.n}))
+    const reactionCount = {}
+
+    reactions.forEach(reaction => {
+      if(reactionCount[reaction.emojiName]){
+        reactionCount[reaction.emojiName].value = reactionCount[reaction.emojiName].value + 1
+      } else {
+        reactionCount[reaction.emojiName] = {
+          value: 1, url: reaction.url, key: reaction.emojiName
+        }
+      }
+    })
+
+    const cReactions = Object.values(reactionCount).sort((a, b) => {
+      a.value - b.value
+    })
+
+    return cReactions
+    // {key: rank.emojiName, value: rank.n}
   } catch (error) {
     throw new Error('Reaction Object Empty');
   }
@@ -90,7 +106,7 @@ function mostLongWinded(messages) {
       groupBy('authorId', groupBy.entriesObject())
     );
     authorMessages = authorMessages.map(collection => {
-      
+
       let wordCount = collection.values.reduce((count, msg) => {
 
         if(msg.dataValues.content === undefined) {
