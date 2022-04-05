@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { message, mention, reaction } = require('../db');
-const guildDataCompiler = require('../../utilities/GuildDataCompiler');
-const channelDataCompiler = require('../../utilities/ChannelDataCompiler')
+const guildDataCompiler = require('../../utilities/guildDataCompiler');
+const channelDataCompiler = require('../../utilities/channelDataCompiler')
 const userCompiler = require('../../utilities/userCompiler')
 const guildUsers = require('../controllers/guildUsers')
 
