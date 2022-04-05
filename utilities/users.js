@@ -60,9 +60,17 @@ function mostUsedReaction(reactions) {
       }
     })
 
-    const cReactions = Object.values(reactionCount).sort((a, b) => {
-      a.value - b.value
-    })
+    const reactionSort = (a, b) => {
+      if(a.value < b.value){
+        return -1
+      }
+      if(a.value > b.value){
+        return 1
+      }
+      return 0
+    }
+
+    const cReactions = Object.values(reactionCount).sort(reactionSort)
 
     return cReactions
     // {key: rank.emojiName, value: rank.n}
