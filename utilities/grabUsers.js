@@ -1,7 +1,12 @@
 const colorCreator = require('./colorCreator')
 
-const grabUsers = async (guild) => {
-  const users = guild.members.cache
+const grabUsers = async (client, type) => {
+  let users
+  if(type === 'channel'){
+    users = client.members
+  }else{
+    users = client.members.cache
+  }
 
   const cUsers = {}
 

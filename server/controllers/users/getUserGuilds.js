@@ -28,7 +28,7 @@ const getUserGuilds = async (req, res, next) => {
     return
   }
 
-  res.send(cGuilds)
+  res.send(cGuilds.filter(guild => guild))
 }
 
 module.exports = getUserGuilds
