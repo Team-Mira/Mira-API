@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { message, mention, reaction } = require('../db');
-const dataCompiler = require('../../utilities/dataCompiler');
+const guildDataCompiler = require('../../utilities/GuildDataCompiler');
+const channelDataCompiler = require('../../utilities/ChannelDataCompiler')
 const userCompiler = require('../../utilities/userCompiler')
 const guildUsers = require('../controllers/guildUsers')
 
@@ -10,7 +11,7 @@ router.get('/:guildId', async (req, res, next) => {
   try {
     const { guildId } = req.params;
 
-    const cData = await dataCompiler(guildId);
+    const cData = await guildDataCompiler(guildId);
 
     res.send(cData);
   } catch (error) {
@@ -29,6 +30,18 @@ router.get('/:guildId/users', async (req, res, next) => {
     }
 
     res.send(usersData)
+  } catch (error) {
+    throw(error);
+  }
+});
+
+router.get('/channel/:channelId', async (req, res, next) => {
+  try {
+    const { channelId } = req.params;
+
+    const cData = await channelDataCompiler(channelId);
+
+    res.send(cData);
   } catch (error) {
     throw(error);
   }
